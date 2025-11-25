@@ -1,0 +1,37 @@
+var kGoogleApiKey =
+    "AIzaSyByeL4973jLw5-DqyPtVl79I3eDN4uAuAQ"; //"AIzaSyDgsuj1uAGFuJBsUaTdl0lFllr56DnIp9Y";
+String accessTokenPref = "accessToken-pref";
+String getDeviceToken = "deviceToken-pref";
+String refreshTokenPref = "refreshToken-pref";
+String isLoginPref = "is_login";
+String userIdPref = "is_userId-pref";
+String userNameId = "is_userId-name";
+String userEmailId = "is_userId-email";
+String theme = "theme_data";
+String hasSubscription = "has_subscription";
+const String savedUsernamePref = 'saved_username';
+const String savedPasswordPref = 'saved_password';
+const String scanCountKey = 'scan_count';
+
+String publishableKey =
+    "pk_test_51QzXeEB3q6LM1zdiXrU09LWORSx1JJHKm8vmfMce6r5QvFnc2d8grRqg3KOsr0d2cObfAi1xuKu5j15MnsggAto900L3rs6wSU";
+const userProfileLocalFilePath = 'user_profile.json'; // Save path
+
+// var kGoogleApiKey =
+//     "AIzaSyByeL4973jLw5-DqyPtVl79I3eDN4uAuAQ"; //"AIzaSyByeL4973jLw5-DqyPtVl79I3eDN4uAuAQ";
+//vikas
+// var kGoogleApiKey="AIzaSyDGBBUl2gpsGC3L4X6PoEIBk5s5Mc8JNIM";
+
+String capitalizeFirstLetter(String text) {
+  if (text.isEmpty) return text;
+  return text[0].toUpperCase() + text.substring(1);
+}
+
+bool checkIfVideo(String url) {
+  return url.endsWith('.mp4') ||
+      url.endsWith('.mov') ||
+      url.endsWith('.avi') ||
+      url.endsWith('.MP4') ||
+      url.endsWith('.MOV') ||
+      url.endsWith('.AVI');
+}
