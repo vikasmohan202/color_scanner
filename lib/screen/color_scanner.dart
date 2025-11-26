@@ -93,10 +93,7 @@ class _ColorScannerScreenState extends State<ColorScannerScreen> {
     if (_cameras == null || _cameras!.isEmpty) return;
 
     try {
-      _cameraController = CameraController(
-        _cameras![0],
-        ResolutionPreset.high,
-      );
+      _cameraController = CameraController(_cameras![0], ResolutionPreset.high);
       await _cameraController!.initialize();
       setState(() {});
     } catch (e) {
@@ -159,7 +156,8 @@ class _ColorScannerScreenState extends State<ColorScannerScreen> {
   Future<void> _scanFromCamera() async {
     if (_cameraController == null ||
         !_cameraController!.value.isInitialized ||
-        _isScanning) return;
+        _isScanning)
+      return;
 
     try {
       final image = await _cameraController!.takePicture();
@@ -314,7 +312,7 @@ class _ColorScannerScreenState extends State<ColorScannerScreen> {
                           blurRadius: 10,
                           spreadRadius: 2,
                           offset: const Offset(0, 4),
-                        )
+                        ),
                       ]
                     : null,
               ),
@@ -343,16 +341,15 @@ class _ColorScannerScreenState extends State<ColorScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _scanCount = SharedPrefUtil.getScanCount();
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF6A11CB),
-              Color(0xFF2575FC),
-            ],
+            colors: [Color(0xFF6A11CB), Color(0xFF2575FC)],
           ),
         ),
         child: SafeArea(
@@ -376,11 +373,12 @@ class _ColorScannerScreenState extends State<ColorScannerScreen> {
                   color: Colors.white,
                 ),
                 actions: [
-                  // Scan counter badge
                   Container(
                     margin: const EdgeInsets.only(right: 8, top: 8),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
@@ -530,8 +528,10 @@ class _ColorScannerScreenState extends State<ColorScannerScreen> {
               icon: const Icon(Icons.camera_alt_rounded),
               label: const Text('SELECT SOURCE'),
               style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 16,
+                ),
                 backgroundColor: Colors.white,
                 foregroundColor: const Color(0xFF6A11CB),
                 shape: RoundedRectangleBorder(
@@ -549,10 +549,7 @@ class _ColorScannerScreenState extends State<ColorScannerScreen> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   'Camera not available',
-                  style: TextStyle(
-                    color: Colors.red[300],
-                    fontSize: 14,
-                  ),
+                  style: TextStyle(color: Colors.red[300], fontSize: 14),
                 ),
               ),
             const Spacer(flex: 2),
@@ -609,11 +606,7 @@ class _ColorScannerScreenState extends State<ColorScannerScreen> {
             ),
             child: Stack(
               children: [
-                Positioned.fill(
-                  child: CustomPaint(
-                    painter: _TargetPainter(),
-                  ),
-                ),
+                Positioned.fill(child: CustomPaint(painter: _TargetPainter())),
               ],
             ),
           ),

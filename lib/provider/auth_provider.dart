@@ -158,7 +158,6 @@ class AuthProvider with ChangeNotifier {
     _isProcessingPayment = processing;
     notifyListeners();
   }
-  // In your AuthProvider class, add this method:
 
   Future<bool> increaseScanCount(BuildContext context) async {
     _setLoading(true);
@@ -176,9 +175,25 @@ class AuthProvider with ChangeNotifier {
       if (response.success) {
         return true;
       } else {
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (context) => const UpgradeDialog()));
+        int scanCount = SharedPrefUtil.getScanCount();
+        if (scanCount > 3) {
+          Navigator.of(
+            // ignore: use_build_context_synchronously
+            context,
+          ).push(
+            MaterialPageRoute(
+              builder: (context) => UpgradeDialog(isPlanExpired: true),
+            ),
+          );
+        } else {
+          Navigator.of(
+            // ignore: use_build_context_synchronously
+            context,
+          ).push(
+            MaterialPageRoute(builder: (context) => const UpgradeDialog()),
+          );
+        }
+
         return false;
       }
     } catch (e) {
@@ -313,14 +328,14 @@ class AuthProvider with ChangeNotifier {
 
       _setLoading(false);
 
-      if (response.success && response.data != null) {
+      if (response.success) {
         user = UserModel.fromJson(response.data['data']);
         int count = user.scans.isNotEmpty ? int.parse(user.scans) : 0;
         SharedPrefUtil.setValue(scanCountKey, count);
         notifyListeners();
         return true;
       } else {
-        _setError(response.message ?? 'Failed to fetch user data');
+        _setError(response.message);
         return false;
       }
     } catch (e) {
@@ -351,7 +366,7 @@ class AuthProvider with ChangeNotifier {
         _resetEmail = null;
         return true;
       } else {
-        _setError(response.message ?? 'Password reset failed');
+        _setError(response.message);
         return false;
       }
     } catch (e) {
@@ -484,6 +499,7 @@ class AuthProvider with ChangeNotifier {
       if (userId != null) {
         await SharedPrefUtil.setValue(userIdPref, userId.toString());
       }
+      await getUser();
       getActiveSubscription();
     } catch (e) {
       print('Error saving login data: $e');
