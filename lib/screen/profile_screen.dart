@@ -5,7 +5,6 @@ import 'package:color_scanner/screen/login_screen.dart';
 import 'package:color_scanner/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -20,16 +19,14 @@ class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Color?> _gradientAnimation;
-  final ImagePicker _imagePicker = ImagePicker();
   File? _profileImage;
   bool _isLoading = false;
 
-  // User profile data
-  String _bio =
+  
+  final String _bio =
       'Passionate color enthusiast and digital artist. Love exploring the world through colors! 🎨';
-  final String _joinDate = 'Joined January 2024';
+  final String _joinDate = '';
 
-  // Stats
   int _scansCount = 0;
   final int _favoritesCount = 42;
   final int _palettesCreated = 18;
@@ -77,11 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen>
     );
   }
 
-  void _showSettings() {
-    _showSnackBar('Settings feature coming soon!');
-  }
 
-  // Share profile
   Future<void> _shareProfile() async {
     try {
       final userProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -100,6 +93,7 @@ https://colorscanner.app/user/${userProvider.user.id}
 #ColorScanner #ColorEnthusiast #DigitalArt
       ''';
 
+      // ignore: deprecated_member_use
       await Share.share(shareText, subject: 'My Color Scanner Profile');
     } catch (e) {
       _showSnackBar('Failed to share profile: $e');
@@ -353,7 +347,6 @@ https://colorscanner.app/user/${userProvider.user.id}
 
         const SizedBox(height: 20),
 
-        // Name and Email
         Column(
           children: [
             Padding(
@@ -387,6 +380,7 @@ https://colorscanner.app/user/${userProvider.user.id}
               _joinDate,
               style: TextStyle(
                 fontSize: 12,
+                // ignore: deprecated_member_use
                 color: Colors.white.withOpacity(0.7),
                 fontStyle: FontStyle.italic,
               ),
@@ -462,7 +456,6 @@ https://colorscanner.app/user/${userProvider.user.id}
     );
   }
 
-  /// 🔑 NEW: Subscription section
   Widget _buildSubscriptionSection(AuthProvider provider) {
     final sub = provider.subscriptionModel;
     if (sub == null) {

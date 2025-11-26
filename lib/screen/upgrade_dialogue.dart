@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UpgradeDialog extends StatefulWidget {
-  const UpgradeDialog({Key? key}) : super(key: key);
+  final bool isPlanExpired; // <-- NEW
+
+  const UpgradeDialog({Key? key, this.isPlanExpired = false}) : super(key: key);
 
   @override
   State<UpgradeDialog> createState() => _UpgradeDialogState();
 }
 
 class _UpgradeDialogState extends State<UpgradeDialog> {
-  final String paymentUrl = "https://yourpaymentlink.com/checkout";
+  final String paymentUrl = "http://34.206.193.218:2425/";
 
   @override
   Widget build(BuildContext context) {
+    bool isExpired = widget.isPlanExpired;
+
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
@@ -31,13 +33,13 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: Colors.orange.shade50,
+                color: isExpired ? Colors.red.shade50 : Colors.orange.shade50,
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                Icons.workspace_premium,
+                isExpired ? Icons.error_outline : Icons.workspace_premium,
                 size: 40,
-                color: Colors.orange.shade700,
+                color: isExpired ? Colors.red.shade700 : Colors.orange.shade700,
               ),
             ),
 
@@ -45,7 +47,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
 
             // Title
             Text(
-              'Free Trial Ended',
+              isExpired ? 'Subscription Expired' : 'Free Trial Ended',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -57,7 +59,9 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
 
             // Description
             Text(
-              'You have used all your free scans. Subscribe to continue using our premium features.',
+              isExpired
+                  ? 'Your subscription has expired. Renew to continue accessing premium features.'
+                  : 'You have used all your free scans. Subscribe to continue using premium features.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -73,16 +77,22 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
 
             const SizedBox(height: 24),
 
-            // Visit Payment Link Button
+            // Payment Button
             ElevatedButton.icon(
               onPressed: _launchPaymentUrl,
               icon: const Icon(Icons.payment),
-              label: const Text("Visit this link to make payment"),
+              label: Text(
+                isExpired ? "Renew Subscription" : "Visit link to make payment",
+              ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange.shade700,
+                backgroundColor: isExpired
+                    ? Colors.red.shade700
+                    : Colors.orange.shade700,
                 foregroundColor: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -91,14 +101,12 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
 
             const SizedBox(height: 16),
 
+            // Cancel Button
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text(
-                'Maybe Later',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                ),
+              child: Text(
+                isExpired ? 'Cancel' : 'Maybe Later',
+                style: const TextStyle(color: Colors.grey, fontSize: 16),
               ),
             ),
           ],
@@ -123,19 +131,12 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
-          Icon(
-            Icons.check_circle,
-            color: Colors.green.shade500,
-            size: 20,
-          ),
+          Icon(Icons.check_circle, color: Colors.green.shade500, size: 20),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               text,
-              style: TextStyle(
-                color: Colors.grey.shade700,
-                fontSize: 14,
-              ),
+              style: TextStyle(color: Colors.grey.shade700, fontSize: 14),
             ),
           ),
         ],
@@ -144,7 +145,8 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
   }
 
   Future<void> _launchPaymentUrl() async {
-    final Uri url = Uri.parse("http://34.206.193.218:2425/");
+    final Uri url = Uri.parse(paymentUrl);
+
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

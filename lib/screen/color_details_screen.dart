@@ -88,7 +88,7 @@ class ColorDetailScreen extends StatelessWidget {
                             Icon(Icons.color_lens, size: 16, color: textColor),
                             const SizedBox(width: 4),
                             Text(
-                              'Scan #$scanCount',
+                              'Scan #${scanCount - 1}',
                               style: TextStyle(
                                 color: textColor,
                                 fontSize: 14,
