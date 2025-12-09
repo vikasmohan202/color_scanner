@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:color_scanner/network/call_helper.dart';
-import 'package:color_scanner/utils/constants.dart';
-import 'package:color_scanner/utils/shared_pref.dart';
+import 'package:ralpal/network/call_helper.dart';
+import 'package:ralpal/utils/constants.dart';
+import 'package:ralpal/utils/shared_pref.dart';
 import 'package:http/http.dart' as http;
 
 class AuthAPIs {

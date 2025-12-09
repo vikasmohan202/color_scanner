@@ -1,8 +1,5 @@
-
-
-
-import 'package:color_scanner/utils/constants.dart';
-import 'package:color_scanner/utils/shared_pref.dart';
+import 'package:ralpal/utils/constants.dart';
+import 'package:ralpal/utils/shared_pref.dart';
 
 class ApiBase {
   String accessToken = '';

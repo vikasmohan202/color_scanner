@@ -1,4 +1,4 @@
-package com.example.color_scanner
+package ralpal.colorScanner.app
 
 import io.flutter.embedding.android.FlutterActivity
 

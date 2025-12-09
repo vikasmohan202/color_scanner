@@ -1,7 +1,7 @@
-import 'package:color_scanner/provider/auth_provider.dart';
-import 'package:color_scanner/screen/dash_board_screen.dart';
-import 'package:color_scanner/screen/forgot_password_screen.dart';
-import 'package:color_scanner/screen/sign_up_screen.dart';
+import 'package:ralpal/provider/auth_provider.dart';
+import 'package:ralpal/screen/dash_board_screen.dart';
+import 'package:ralpal/screen/forgot_password_screen.dart';
+import 'package:ralpal/screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen>
       begin: const Color(0xFF667EEA),
       end: const Color(0xFF764BA2),
     ).animate(_animationController);
-   
   }
 
   @override

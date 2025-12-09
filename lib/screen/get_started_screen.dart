@@ -1,7 +1,6 @@
-
-import 'package:color_scanner/provider/auth_provider.dart';
-import 'package:color_scanner/screen/dash_board_screen.dart';
-import 'package:color_scanner/screen/login_screen.dart';
+import 'package:ralpal/provider/auth_provider.dart';
+import 'package:ralpal/screen/dash_board_screen.dart';
+import 'package:ralpal/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -60,13 +59,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   }
 
   void _navigateToLogin() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
   void _navigateToDashboard() {
-    
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => DashboardScreen()),
     );
@@ -88,10 +86,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               SizedBox(height: 20),
               Text(
                 'Checking login status...',
-                style: TextStyle(
-                  color: Color(0xFF5B50FF),
-                  fontSize: 16,
-                ),
+                style: TextStyle(color: Color(0xFF5B50FF), fontSize: 16),
               ),
             ],
           ),
@@ -206,8 +201,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   ElevatedButton(
                     onPressed: () {
                       // Check if user is logged in using the provider
-                      final authProvider =
-                          Provider.of<AuthProvider>(context, listen: false);
+                      final authProvider = Provider.of<AuthProvider>(
+                        context,
+                        listen: false,
+                      );
 
                       if (authProvider.isLoggedIn) {
                         _navigateToDashboard();
@@ -222,7 +219,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 12),
+                        horizontal: 32,
+                        vertical: 12,
+                      ),
                     ),
                     child: const Text(
                       'Get Started',
@@ -231,7 +230,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

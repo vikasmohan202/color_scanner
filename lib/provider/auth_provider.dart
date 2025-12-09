@@ -1,18 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:color_scanner/network/call_helper.dart';
-import 'package:color_scanner/network/models/plan_model.dart';
-import 'package:color_scanner/network/models/subscription_model.dart';
-import 'package:color_scanner/network/models/user_model.dart';
-import 'package:color_scanner/network/network_calls/auth_api.dart';
-import 'package:color_scanner/screen/otp_screen.dart';
-import 'package:color_scanner/screen/upgrade_dialogue.dart';
-import 'package:color_scanner/utils/constants.dart';
-import 'package:color_scanner/utils/shared_pref.dart';
-
+import 'package:ralpal/network/call_helper.dart';
+import 'package:ralpal/network/models/plan_model.dart';
+import 'package:ralpal/network/models/subscription_model.dart';
+import 'package:ralpal/network/models/user_model.dart';
+import 'package:ralpal/network/network_calls/auth_api.dart';
+import 'package:ralpal/screen/otp_screen.dart';
+import 'package:ralpal/screen/upgrade_dialogue.dart';
+import 'package:ralpal/utils/constants.dart';
+import 'package:ralpal/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 
@@ -77,12 +74,12 @@ class AuthProvider with ChangeNotifier {
 
       _setPaymentProcessing(false);
 
-      if (response.success && response.data != null) {
+      if (response.success) {
         _clientSecret = response.data!['data']['clientSecret'];
         _paymentIntentId = response.data!['data']['paymentIntentId'];
         return true;
       } else {
-        _setPaymentError(response.message ?? 'Failed to create payment intent');
+        _setPaymentError(response.message);
         return false;
       }
     } catch (e) {
@@ -551,6 +548,51 @@ class AuthProvider with ChangeNotifier {
     } catch (e) {
       _setLoading(false);
       _setError('An error occurred while updating profile: $e');
+      return false;
+    }
+  }
+
+  // 🔴 DELETE ACCOUNT
+  Future<bool> deleteAccount() async {
+    _setLoading(true);
+    _setError(null);
+
+    try {
+      final String token =
+          SharedPrefUtil.getValue(accessTokenPref, '') as String;
+
+      if (token.isEmpty) {
+        _setLoading(false);
+        _setError('No access token found');
+        return false;
+      }
+
+      // Using your given endpoint:
+      // DELETE http://34.206.193.218:7878/api/auth/deleteMyAccount
+      final uri = Uri.parse('${CallHelper.baseUrl}api/auth/deleteMyAccount');
+
+      final response = await http.delete(
+        uri,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      _setLoading(false);
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        // Clear local data & tokens
+        SharedPrefUtil.logOut();
+        await _clearLoginData();
+        return true;
+      } else {
+        _setError('Failed to delete account. (${response.statusCode})');
+        return false;
+      }
+    } catch (e) {
+      _setLoading(false);
+      _setError('An error occurred while deleting account: $e');
       return false;
     }
   }

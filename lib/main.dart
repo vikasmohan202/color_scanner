@@ -1,6 +1,6 @@
-import 'package:color_scanner/provider/auth_provider.dart';
-import 'package:color_scanner/screen/splash_screen.dart';
-import 'package:color_scanner/utils/shared_pref.dart';
+import 'package:ralpal/provider/auth_provider.dart';
+import 'package:ralpal/screen/splash_screen.dart';
+import 'package:ralpal/utils/shared_pref.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' show Stripe;

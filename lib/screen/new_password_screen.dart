@@ -1,5 +1,5 @@
 // new_password_screen.dart
-import 'package:color_scanner/provider/auth_provider.dart';
+import 'package:ralpal/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +55,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen>
         _showSuccessDialog();
       } else if (mounted) {
         _showErrorSnackBar(
-            authProvider.errorMessage ?? 'Password reset failed');
+          authProvider.errorMessage ?? 'Password reset failed',
+        );
       }
 
       if (mounted) {
@@ -89,10 +90,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen>
         ),
         title: const Text(
           'Password Reset Successful!',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.green,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
           textAlign: TextAlign.center,
         ),
         content: const Text(
@@ -133,10 +131,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen>
 
   void _showErrorSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: Colors.redAccent,
-      ),
+      SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
     );
   }
 
@@ -235,10 +230,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen>
         const SizedBox(height: 12),
         Text(
           'Create a new password for your account',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white.withOpacity(0.9),
-          ),
+          style: TextStyle(fontSize: 16, color: Colors.white.withOpacity(0.9)),
         ),
       ],
     );
@@ -263,8 +255,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen>
               decoration: InputDecoration(
                 labelText: 'New Password',
                 labelStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-                prefixIcon:
-                    Icon(Icons.lock, color: Colors.white.withOpacity(0.8)),
+                prefixIcon: Icon(
+                  Icons.lock,
+                  color: Colors.white.withOpacity(0.8),
+                ),
                 suffixIcon: IconButton(
                   icon: Icon(
                     _obscurePassword ? Icons.visibility : Icons.visibility_off,
@@ -302,8 +296,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen>
               decoration: InputDecoration(
                 labelText: 'Confirm New Password',
                 labelStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-                prefixIcon: Icon(Icons.lock_outline,
-                    color: Colors.white.withOpacity(0.8)),
+                prefixIcon: Icon(
+                  Icons.lock_outline,
+                  color: Colors.white.withOpacity(0.8),
+                ),
                 suffixIcon: IconButton(
                   icon: Icon(
                     _obscureConfirmPassword

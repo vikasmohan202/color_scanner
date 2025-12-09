@@ -1,8 +1,8 @@
-import 'package:color_scanner/provider/auth_provider.dart';
-import 'package:color_scanner/screen/color_pallate.dart';
-import 'package:color_scanner/screen/edit_profile_screen.dart';
-import 'package:color_scanner/screen/login_screen.dart';
-import 'package:color_scanner/utils/shared_pref.dart';
+import 'package:ralpal/provider/auth_provider.dart';
+import 'package:ralpal/screen/color_pallate.dart';
+import 'package:ralpal/screen/edit_profile_screen.dart';
+import 'package:ralpal/screen/login_screen.dart';
+import 'package:ralpal/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:provider/provider.dart';
@@ -21,8 +21,8 @@ class _ProfileScreenState extends State<ProfileScreen>
   late Animation<Color?> _gradientAnimation;
   File? _profileImage;
   bool _isLoading = false;
+  bool _isDeleting = false;
 
-  
   final String _bio =
       'Passionate color enthusiast and digital artist. Love exploring the world through colors! 🎨';
   final String _joinDate = '';
@@ -73,7 +73,6 @@ class _ProfileScreenState extends State<ProfileScreen>
       ),
     );
   }
-
 
   Future<void> _shareProfile() async {
     try {
@@ -170,6 +169,69 @@ https://colorscanner.app/user/${userProvider.user.id}
     }
   }
 
+  Future<void> _confirmDeleteAccount() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    final bool? confirm = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text(
+          'Delete Account',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+        ),
+        content: const Text(
+          'This action is permanent and will delete your account and data.\n\nAre you sure you want to continue?',
+          style: TextStyle(color: Colors.black87),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Color(0xFF667EEA)),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text('Delete', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      setState(() {
+        _isDeleting = true;
+      });
+
+      final success = await authProvider.deleteAccount();
+
+      if (!mounted) return;
+
+      setState(() {
+        _isDeleting = false;
+      });
+
+      if (success) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        _showSnackBar(authProvider.errorMessage ?? 'Failed to delete account');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<AuthProvider>(context);
@@ -238,6 +300,11 @@ https://colorscanner.app/user/${userProvider.user.id}
 
                       // Logout Button
                       _buildLogoutButton(),
+
+                      const SizedBox(height: 16),
+
+                      // Delete Account Button
+                      _buildDeleteButton(),
 
                       const SizedBox(height: 20),
                     ],
@@ -862,6 +929,48 @@ https://colorscanner.app/user/${userProvider.user.id}
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.white.withOpacity(0.9),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+    );
+  }
+
+  Widget _buildDeleteButton() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      child: _isDeleting
+          ? const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            )
+          : ElevatedButton(
+              onPressed: _confirmDeleteAccount,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red.withOpacity(0.9),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 15,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  side: BorderSide(color: Colors.white.withOpacity(0.3)),
+                ),
+                elevation: 5,
+                shadowColor: Colors.black.withOpacity(0.3),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.delete_forever, color: Colors.white),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Delete Account',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
                     ),
                   ),
                 ],
