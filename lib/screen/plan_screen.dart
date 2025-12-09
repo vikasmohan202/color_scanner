@@ -1,6 +1,5 @@
-
-import 'package:color_scanner/network/models/plan_model.dart';
-import 'package:color_scanner/provider/auth_provider.dart';
+import 'package:ralpal/network/models/plan_model.dart';
+import 'package:ralpal/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +21,9 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
   }
 
   Future<void> _subscribeToPlan(
-      String planId, AuthProvider authProvider) async {
+    String planId,
+    AuthProvider authProvider,
+  ) async {
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -40,10 +41,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: Colors.grey[600]),
-            ),
+            child: Text('Cancel', style: TextStyle(color: Colors.grey[600])),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
@@ -110,8 +108,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Payment Failed'),
-          content: Text(authProvider.paymentError ??
-              'Payment processing failed. Please try again.'),
+          content: Text(
+            authProvider.paymentError ??
+                'Payment processing failed. Please try again.',
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -135,10 +135,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
       appBar: AppBar(
         title: const Text(
           'Premium Features',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
         ),
         backgroundColor: Color(0xFF6C63FF), // Purple accent color
         foregroundColor: Colors.white,
@@ -210,11 +207,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
                 color: Colors.red.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                Icons.error_outline,
-                size: 40,
-                color: Colors.red,
-              ),
+              child: Icon(Icons.error_outline, size: 40, color: Colors.red),
             ),
             const SizedBox(height: 20),
             Text(
@@ -228,10 +221,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
             const SizedBox(height: 12),
             Text(
               authProvider.errorMessage ?? 'Unknown error occurred',
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 14,
-              ),
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
@@ -240,8 +230,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF6C63FF),
                 foregroundColor: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 12,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
@@ -249,10 +241,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
               ),
               child: const Text(
                 'Try Again',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
               ),
             ),
           ],
@@ -293,10 +282,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
             const SizedBox(height: 12),
             Text(
               'Check back later for exciting color scanning features!',
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 14,
-              ),
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
               textAlign: TextAlign.center,
             ),
           ],
@@ -333,10 +319,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
           const SizedBox(height: 8),
           Text(
             'Unlock advanced color scanning features',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey[600]),
           ),
           const SizedBox(height: 20),
           _buildPlansGrid(authProvider),
@@ -375,11 +358,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
                   color: Colors.white.withOpacity(0.2),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.auto_awesome,
-                  color: Colors.white,
-                  size: 20,
-                ),
+                child: Icon(Icons.auto_awesome, color: Colors.white, size: 20),
               ),
               const SizedBox(width: 12),
               Text(
@@ -439,11 +418,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
                   color: Colors.green,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 16,
-                ),
+                child: Icon(Icons.check, color: Colors.white, size: 16),
               ),
               const SizedBox(width: 12),
               Text(
@@ -499,7 +474,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
   }
 
   Widget _buildPlanCard(
-      SubscriptionPlan plan, AuthProvider authProvider, bool isCurrentPlan) {
+    SubscriptionPlan plan,
+    AuthProvider authProvider,
+    bool isCurrentPlan,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -534,8 +512,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
                 ),
                 if (isCurrentPlan)
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0xFF6C63FF),
                       borderRadius: BorderRadius.circular(12),
@@ -562,10 +542,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
             ),
             Text(
               'per ${plan.billingCycle.toLowerCase()}',
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 14,
-              ),
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
             ),
             const SizedBox(height: 16),
             Column(
@@ -574,7 +551,9 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
                 _buildFeatureRow('Advanced color analysis', true),
                 _buildFeatureRow('Export to multiple formats', true),
                 _buildFeatureRow(
-                    'Priority support', plan.planName == 'Premium'),
+                  'Priority support',
+                  plan.planName == 'Premium',
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -594,10 +573,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
                   ),
                   child: Text(
                     'Choose Plan',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                 ),
               ),
@@ -616,10 +592,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
                   ),
                   child: Text(
                     'Current Plan',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                 ),
               ),
@@ -670,6 +643,4 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
       ),
     );
   }
-
-
 }

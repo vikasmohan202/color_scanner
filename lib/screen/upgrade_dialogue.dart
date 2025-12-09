@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UpgradeDialog extends StatefulWidget {
-  final bool isPlanExpired; // <-- NEW
+  final bool isPlanExpired; 
 
-  const UpgradeDialog({Key? key, this.isPlanExpired = false}) : super(key: key);
+  const UpgradeDialog({super.key, this.isPlanExpired = false});
 
   @override
   State<UpgradeDialog> createState() => _UpgradeDialogState();
@@ -72,12 +72,10 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
 
             const SizedBox(height: 24),
 
-            // Features List
             _buildFeatureList(),
 
             const SizedBox(height: 24),
 
-            // Payment Button
             ElevatedButton.icon(
               onPressed: _launchPaymentUrl,
               icon: const Icon(Icons.payment),
@@ -101,7 +99,6 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
 
             const SizedBox(height: 16),
 
-            // Cancel Button
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: Text(

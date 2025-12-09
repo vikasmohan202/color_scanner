@@ -6,9 +6,9 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:camera/camera.dart';
-import 'package:color_scanner/provider/auth_provider.dart';
-import 'package:color_scanner/screen/color_details_screen.dart';
-import 'package:color_scanner/utils/shared_pref.dart';
+import 'package:ralpal/provider/auth_provider.dart';
+import 'package:ralpal/screen/color_details_screen.dart';
+import 'package:ralpal/utils/shared_pref.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

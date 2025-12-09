@@ -2,7 +2,7 @@
 //non-async method for getting preferences. This is becoming a problem as
 //at some places getting pref in constructor is required and constructors
 //can't be async in flutter.
-import 'package:color_scanner/utils/constants.dart';
+import 'package:ralpal/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefUtil {
@@ -15,18 +15,13 @@ class SharedPrefUtil {
     return preferences;
   }
 
-
-  
-
-  static void logIn(companyId, userRole, user, domain, email, number) {
-  }
+  static void logIn(companyId, userRole, user, domain, email, number) {}
 
   static void logOut() {
     clearValue(accessTokenPref);
     clearValue(userIdPref);
     clearValue(refreshTokenPref);
     clearValue(isLoginPref);
-
   }
 
   static setValue(String key, Object value) {

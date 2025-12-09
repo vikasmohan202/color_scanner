@@ -1,6 +1,6 @@
 {
-    "name": "color_scanner",
-    "short_name": "color_scanner",
+    "name": "ralpal",
+    "short_name": "ralpal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

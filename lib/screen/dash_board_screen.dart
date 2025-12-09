@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
-import 'package:color_scanner/screen/color_scanner.dart';
-import 'package:color_scanner/screen/profile_screen.dart';
+import 'package:ralpal/screen/color_scanner.dart';
+import 'package:ralpal/screen/profile_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
@@ -18,7 +18,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> _screens = const [
     ColorScannerHomeScreen(),
     // BrowsePaletteScreen(),
-    ProfileScreen()
+    ProfileScreen(),
   ];
 
   void _onTabTapped(int index) {
@@ -42,9 +42,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: _screens[_selectedIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return ColorScannerScreen();
-          }));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return ColorScannerScreen();
+              },
+            ),
+          );
         },
         backgroundColor: const Color(0xFF5B50FF),
         child: const Icon(Icons.center_focus_strong),
@@ -59,11 +63,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: Icon(Icons.home,
-                    color: _selectedIndex == 0
-                        ? const Color(0xFF5B50FF)
-                        : Colors.grey,
-                    size: 30),
+                icon: Icon(
+                  Icons.home,
+                  color: _selectedIndex == 0
+                      ? const Color(0xFF5B50FF)
+                      : Colors.grey,
+                  size: 30,
+                ),
                 onPressed: () => _onTabTapped(0),
               ),
               // IconButton(
@@ -75,11 +81,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               //   onPressed: () => _onTabTapped(1),
               // ),
               IconButton(
-                icon: Icon(Icons.person,
-                    color: _selectedIndex == 1
-                        ? const Color(0xFF5B50FF)
-                        : Colors.grey,
-                    size: 30),
+                icon: Icon(
+                  Icons.person,
+                  color: _selectedIndex == 1
+                      ? const Color(0xFF5B50FF)
+                      : Colors.grey,
+                  size: 30,
+                ),
                 onPressed: () => _onTabTapped(1),
               ),
             ],

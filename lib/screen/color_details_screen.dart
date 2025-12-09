@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:color_scanner/utils/ral_converter.dart';
+import 'package:ralpal/utils/ral_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

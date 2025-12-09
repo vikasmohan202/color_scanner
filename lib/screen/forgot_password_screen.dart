@@ -1,5 +1,5 @@
-import 'package:color_scanner/provider/auth_provider.dart';
-import 'package:color_scanner/screen/otp_screen.dart';
+import 'package:ralpal/provider/auth_provider.dart';
+import 'package:ralpal/screen/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -49,7 +49,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
         _navigateToOTPScreen(email);
       } else if (mounted) {
         _showErrorSnackBar(
-            authProvider.errorMessage ?? 'Failed to send reset email');
+          authProvider.errorMessage ?? 'Failed to send reset email',
+        );
       }
     }
   }
@@ -57,9 +58,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   void _navigateToOTPScreen(String email) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => OTPScreen(email: email),
-      ),
+      MaterialPageRoute(builder: (context) => OTPScreen(email: email)),
     );
   }
 
@@ -79,8 +78,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
       return 'Please enter your email address';
     }
 
-    final emailRegex =
-        RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    final emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
 
     if (!emailRegex.hasMatch(value)) {
       return 'Please enter a valid email address';
@@ -167,11 +167,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
             color: Colors.white.withOpacity(0.2),
             borderRadius: BorderRadius.circular(15),
           ),
-          child: const Icon(
-            Icons.lock_reset,
-            color: Colors.white,
-            size: 30,
-          ),
+          child: const Icon(Icons.lock_reset, color: Colors.white, size: 30),
         ),
         const SizedBox(height: 20),
         Text(
@@ -181,10 +177,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
             fontWeight: FontWeight.bold,
             color: Colors.white,
             shadows: [
-              Shadow(
-                blurRadius: 10,
-                color: Colors.black.withOpacity(0.3),
-              ),
+              Shadow(blurRadius: 10, color: Colors.black.withOpacity(0.3)),
             ],
           ),
         ),
@@ -228,8 +221,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
               decoration: InputDecoration(
                 labelText: 'Email Address',
                 labelStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-                prefixIcon:
-                    Icon(Icons.email, color: Colors.white.withOpacity(0.8)),
+                prefixIcon: Icon(
+                  Icons.email,
+                  color: Colors.white.withOpacity(0.8),
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(color: Colors.white.withOpacity(0.3)),
@@ -260,8 +255,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
               ),
               child: Row(
                 children: [
-                  Icon(Icons.info,
-                      color: Colors.white.withOpacity(0.7), size: 20),
+                  Icon(
+                    Icons.info,
+                    color: Colors.white.withOpacity(0.7),
+                    size: 20,
+                  ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
@@ -295,8 +293,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 foregroundColor: const Color(0xFF667EEA),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 24,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),

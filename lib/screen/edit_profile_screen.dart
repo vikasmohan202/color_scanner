@@ -1,4 +1,4 @@
-import 'package:color_scanner/provider/auth_provider.dart';
+import 'package:ralpal/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -50,7 +50,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final userProvider = Provider.of<AuthProvider>(context, listen: false);
     final currentBio = _getUserBio(userProvider);
 
-    final hasTextChanges = _nameController.text != userProvider.user.name ||
+    final hasTextChanges =
+        _nameController.text != userProvider.user.name ||
         _bioController.text != currentBio;
     // Removed email comparison since it's not editable
 
@@ -104,8 +105,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               },
             ),
             ListTile(
-              leading:
-                  const Icon(Icons.photo_library, color: Color(0xFF667EEA)),
+              leading: const Icon(
+                Icons.photo_library,
+                color: Color(0xFF667EEA),
+              ),
               title: const Text('Choose from Gallery'),
               onTap: () {
                 Navigator.pop(context);
@@ -116,8 +119,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.delete, color: Colors.red),
-                title: const Text('Remove Photo',
-                    style: TextStyle(color: Colors.red)),
+                title: const Text(
+                  'Remove Photo',
+                  style: TextStyle(color: Colors.red),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
@@ -149,9 +154,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (success) {
       Navigator.pop(context, true);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Failed to update profile")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Failed to update profile")));
     }
   }
 
@@ -207,10 +212,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            child: const Text(
-              'Leave',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: const Text('Leave', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -246,10 +248,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           title: const Text(
             'Edit Profile',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           actions: [],
         ),
@@ -334,26 +333,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: _profileImage != null
                     ? Image.file(_profileImage!, fit: BoxFit.cover)
                     : provider.user.profile.isNotEmpty
-                        ? Image.network(provider.user.profile,
-                            fit: BoxFit.cover)
-                        : Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color(0xFF667EEA),
-                                  Color(0xFF764BA2),
-                                  Color(0xFFF093FB),
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                            ),
-                            child: const Icon(
-                              Icons.person,
-                              size: 50,
-                              color: Colors.white,
-                            ),
+                    ? Image.network(provider.user.profile, fit: BoxFit.cover)
+                    : Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF667EEA),
+                              Color(0xFF764BA2),
+                              Color(0xFFF093FB),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
+                        ),
+                        child: const Icon(
+                          Icons.person,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                      ),
               ),
             ),
             Positioned(
@@ -374,8 +372,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ],
                 ),
                 child: IconButton(
-                  icon: const Icon(Icons.camera_alt,
-                      size: 20, color: Color(0xFF667EEA)),
+                  icon: const Icon(
+                    Icons.camera_alt,
+                    size: 20,
+                    color: Color(0xFF667EEA),
+                  ),
                   onPressed: _showImagePickerDialog,
                   padding: EdgeInsets.zero,
                 ),
@@ -386,10 +387,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         const SizedBox(height: 10),
         Text(
           'Tap camera icon to update photo',
-          style: TextStyle(
-            color: Colors.white.withOpacity(0.8),
-            fontSize: 12,
-          ),
+          style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12),
         ),
       ],
     );
@@ -405,10 +403,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      style: const TextStyle(
-        color: Colors.black87,
-        fontSize: 16,
-      ),
+      style: const TextStyle(color: Colors.black87, fontSize: 16),
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Color(0xFF667EEA)),
@@ -486,10 +481,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           controller: _bioController,
           maxLines: 4,
           maxLength: 200,
-          style: const TextStyle(
-            color: Colors.black87,
-            fontSize: 16,
-          ),
+          style: const TextStyle(color: Colors.black87, fontSize: 16),
           decoration: InputDecoration(
             hintText: 'Tell us about yourself...',
             hintStyle: TextStyle(color: Colors.grey[500]),
@@ -546,10 +538,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               )
             : const Text(
                 'Save Changes',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
       ),
     );

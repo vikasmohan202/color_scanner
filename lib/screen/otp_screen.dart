@@ -1,7 +1,7 @@
 // otp_screen.dart
 import 'dart:async';
 
-import 'package:color_scanner/provider/auth_provider.dart';
+import 'package:ralpal/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';

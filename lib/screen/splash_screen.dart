@@ -1,4 +1,4 @@
-import 'package:color_scanner/screen/get_started_screen.dart';
+import 'package:ralpal/screen/get_started_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,10 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Positioned(
             top: -5,
             left: 5,
-            child: Image.asset(
-              'assets/images/strike.png',
-              width: 100,
-            ),
+            child: Image.asset('assets/images/strike.png', width: 100),
           ),
           // Bottom right decoration
           Positioned(
@@ -48,10 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
-                  'assets/images/logo.png',
-                  width: 120,
-                ),
+                Image.asset('assets/images/logo.png', width: 120),
                 const SizedBox(height: 20),
                 const Text(
                   'Color Scanner',
